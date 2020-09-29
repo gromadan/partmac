@@ -1,0 +1,377 @@
+%%Macro package for typeseting set partitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%First, also as an example, we define shortcuts for some short partitions using word representation.
+
+%%%Partitions with lower points only
+
+%%k=1
+
+\def\La{\LPartition{0.6:1}{}}
+
+%%k=2
+
+\def\Laa{\LPartition{}{0.6:1,2}}
+\def\Lab{\LPartition{0.6:1,2}{}}
+
+%k=3
+
+\def\Laaa{\LPartition{}{0.6:1,2,3}}
+\def\Laab{\LPartition{0.6:3}{0.6:1,2}}
+\def\Laba{\LPartition{0.4:2}{0.8:1,3}}
+\def\Labb{\LPartition{0.6:1}{0.6:2,3}}
+\def\Labc{\LPartition{0.6:1,2,3}{}}
+
+%k=4
+
+
+\def\Laaaa{\LPartition{}{0.6:1,2,3,4}}
+\def\Laaab{\LPartition{0.6:4}{0.6:1,2,3}}
+\def\Laaba{\LPartition{0.4:3}{0.8:1,2,4}}
+\def\Labaa{\LPartition{0.4:2}{0.8:1,3,4}}
+\def\Labbb{\LPartition{0.6:1}{0.6:2,3,4}}
+\def\Laabb{\LPartition{}{0.6:1,2;0.6:3,4}}
+\def\Labba{\LPartition{}{0.8:1,4;0.4:2,3}}
+\def\Labab{\LPartition{}{0.8:2,4;0.4:1,3}}
+\def\Laabc{\LPartition{0.6:3,4}{0.6:1,2}}
+\def\Labac{\LPartition{0.4:2,4}{0.8:1,3}}
+\def\Labca{\LPartition{0.4:2,3}{0.8:1,4}}
+\def\Labbc{\LPartition{0.6:1,4}{0.6:2,3}}
+\def\Labcb{\LPartition{0.4:1,3}{0.8:2,4}}
+\def\Labcc{\LPartition{0.6:1,2}{0.6:3,4}}
+\def\Labcd{\LPartition{0.6:1,2,3,4}{}}
+
+%%%Partitions with upper points only
+
+%%k=1
+
+\def\Ua{\UPartition{0.4:1}{}}
+
+%%k=2
+
+\def\Uaa{\UPartition{}{0.4:1,2}}
+\def\Uab{\UPartition{0.4:1,2}{}}
+
+%k=3
+
+\def\Uaaa{\UPartition{}{0.5:1,2,3}}
+\def\Uaab{\UPartition{0.4:3}{0.4:1,2}}
+\def\Uaba{\UPartition{0.6:2}{0.2:1,3}}
+\def\Uabb{\UPartition{0.4:1}{0.4:2,3}}
+\def\Uabc{\UPartition{0.4:1,2,3}{}}
+
+%k=4
+
+\def\Uaaaa{\UPartition{}{0.4:1,2,3,4}}
+\def\Uaaab{\UPartition{0.4:4}{0.4:1,2,3}}
+\def\Uaaba{\UPartition{0.6:3}{0.2:1,2,4}}
+\def\Uabaa{\UPartition{0.6:2}{0.2:1,3,4}}
+\def\Uabbb{\UPartition{0.4:1}{0.4:2,3,4}}
+\def\Uaabb{\UPartition{}{0.4:1,2;0.4:3,4}}
+\def\Uabba{\UPartition{}{0.2:1,4;0.6:2,3}}
+\def\Uabab{\UPartition{}{0.2:2,4;0.6:1,3}}
+\def\Uaabc{\UPartition{0.4:3,4}{0.4:1,2}}
+\def\Uabac{\UPartition{0.6:2,4}{0.2:1,3}}
+\def\Uabca{\UPartition{0.6:2,3}{0.2:1,4}}
+\def\Uabbc{\UPartition{0.4:1,4}{0.4:2,3}}
+\def\Uabcb{\UPartition{0.6:1,3}{0.2:2,4}}
+\def\Uabcc{\UPartition{0.4:1,2}{0.4:3,4}}
+\def\Uabcd{\UPartition{0.4:1,2,3,4}{}}
+
+%%%Partitions with same amount of upper and lower points
+
+%%k=1, l=1
+
+\def\Paa{\Partition{
+\Pline (1,0) (1,1)
+}}
+
+\def\Pab{\Partition{
+\Psingletons 0to0.3:1
+\Psingletons 1to0.7:1
+}}
+
+%k=4
+
+\def\Paaaa{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+\def\Paaab{\Partition{
+\Pblock 1to0.7:1,2
+\Psingletons 0to0.3:2
+\Pline (1,0) (1,0.7)
+}}
+\def\Paaba{\Partition{
+\Pblock 1to0.7:1,2
+\Psingletons 0to0.3:1
+\Pline (2,0) (2,0.7)
+}}
+\def\Pabaa{\Partition{
+\Pblock 0to0.3:1,2
+\Psingletons 1to0.7:1
+\Pline (2,0.3) (2,1)
+}}
+\def\Pabbb{\Partition{
+\Pblock 0to0.3:1,2
+\Psingletons 1to0.7:2
+\Pline (1,0.3) (1,1)
+}}
+\def\Paabb{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+}}
+\def\Pabba{\Partition{
+\Pline (1,0) (1,1)
+\Pline (2,0) (2,1)
+}}
+\def\Pabab{\Partition{
+\Pline (1,0) (2, 1)
+\Pline (1,1) (2, 0)
+}}
+\def\Paabc{\Partition{
+\Psingletons 0to0.3:1,2
+\Pblock 1to0.7:1,2
+}}
+\def\Pabcc{\Partition{
+\Pblock 0to0.3:1,2
+\Psingletons 1to0.7:1,2
+}}
+\def\Pabac{\Partition{
+\Psingletons 0to0.3:2
+\Psingletons 1to0.7:1
+\Pline (1,0) (2,1)
+}}
+\def\Pabcb{\Partition{
+\Psingletons 0to0.3:1
+\Psingletons 1to0.7:2
+\Pline (2,0) (1,1)
+}}
+\def\Pabca{\Partition{
+\Psingletons 0to0.3:1
+\Psingletons 1to0.7:1
+\Pline (2,0) (2,1)
+}}
+\def\Pabbc{\Partition{
+\Psingletons 0to0.3:2
+\Psingletons 1to0.7:2
+\Pline (1,0) (1,1)
+}}
+\def\Pabcd{\Partition{
+\Psingletons 0to0.3:1,2
+\Psingletons 1to0.7:1,2
+}}
+
+%k=6
+
+\def\Pabcabc{\Partition{
+\Pline (1,0) (3, 1)
+\Pline (2,0) (2, 1)
+\Pline (3,0) (1, 1)
+}}
+\def\Pabcabd{\Partition{
+\Pline (1,0) (3, 1)
+\Pline (2,0) (2, 1)
+\Psingletons 0to0.3:3
+\Psingletons 1to0.7:1
+}}
+\def\Pabcadc{\Partition{
+\Pline (1,0) (3, 1)
+\Pline (3,0) (1, 1)
+\Psingletons 0to0.2:2
+\Psingletons 1to0.8:2
+}}
+\def\Pabcdbc{\Partition{
+\Pline (2,0) (2, 1)
+\Pline (3,0) (1, 1)
+\Psingletons 0to0.3:1
+\Psingletons 1to0.7:3
+}}
+\def\Pabcade{\Partition{
+\Pline (1,0) (3, 1)
+\Psingletons 0to0.2:2,3
+\Psingletons 1to0.8:1,2
+}}
+\def\Pabcdec{\Partition{
+\Pline (3,0) (1, 1)
+\Psingletons 0to0.2:1,2
+\Psingletons 1to0.8:2,3
+}}
+\def\Pabcdbe{\Partition{
+\Pline (2,0) (2, 1)
+\Psingletons 0to0.3:1,3
+\Psingletons 1to0.7:1,3
+}}
+\def\Pabcdef{\Partition{
+\Psingletons 0to0.3:1,2,3
+\Psingletons 1to0.7:1,2,3
+}}
+
+\def\Paabaab{\Partition{
+\Pblock 1to0.75:2,3
+\Pblock 0to0.25:1,2
+\Pline (1.5,0.25)(2.5,0.75)
+\Pline (3,0)(1,1)
+}}
+
+%%%Some aliases
+
+\def\singleton{{\mathord{\uparrow}}}
+\def\upsingleton{{\mathord{\downarrow}}}
+%\def\singleton{\LPartition{\Ls:1}{}}
+%\def\upsingleton{\UPartition{\Us:1}{}}
+\let\pairpart=\Laa
+\let\uppairpart=\Uaa
+\let\fourpart=\Laaaa
+\let\idpart=\Paa
+\let\disconnecterpart=\Pab
+\let\connecterpart=\Paaaa
+\let\crosspart=\Pabab
+\let\positionerpart=\Pabcb
+\let\halflibpart=\Pabcabc
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%The macros
+
+\def\Partition#1{%
+\ifmmode
+\mathchoice{
+\,\PartitionA{0.25em}{0.7em}{1em}{#1}\,%
+}{
+\,\PartitionA{0.25em}{0.7em}{1em}{#1}\,%
+}{
+\,\PartitionA{0.175em}{0.55em}{0.7em}{#1}\,%
+}{
+\,\PartitionA{0.125em}{0.4em}{0.5em}{#1}\,%
+}\else%
+\thinspace\PartitionA{0.25em}{0.7em}{1em}{#1}\thinspace%
+\fi%
+}
+
+\def\BigPartition#1{%
+\ifmmode
+\mathchoice{
+\,\PartitionA{1em}{0.9em}{2.5em}{#1}\,%
+}{
+\,\PartitionA{0.75em}{0.7em}{2em}{#1}\,%
+}{
+\,\PartitionA{0.25em}{0.5em}{1em}{#1}\,%
+}{
+\,\PartitionA{0.20em}{0.4em}{0.8em}{#1}\,%
+}
+\else%
+\thinspace\PartitionA{0.75em}{0.7em}{2em}{#1}\thinspace%
+\fi%
+}
+
+\def\Pwidth{0.05}
+
+\def\PartitionA#1#2#3#4{%
+\pgfpicture
+\pgfsetbaseline{#1}
+\pgfsetxvec{\pgfpoint{#2}{0em}}
+\pgfsetyvec{\pgfpoint{0em}{#3}}
+\pgfsetlinewidth{\Pwidth em}
+#4
+\endpgfpicture
+}
+
+\def\fihere#1\fi{\fi#1}
+
+\def\Pline(#1,#2)#3(#4,#5){
+\pgfpathmoveto{\pgfpointxy{#1}{#2}}
+\pgfpathlineto{\pgfpointxy{#4}{#5}}
+\pgfusepath{stroke}
+}
+
+\def\Psingletons #1to#2:#3 {\PsingletonsA{#1}{#2}#3,,}
+\def\PsingletonsA#1#2#3,{\ifx,#3,\else
+\pgfpathmoveto{\pgfpointxy{#3}{#1}}
+\pgfpathlineto{\pgfpointxy{#3}{#2}}
+\pgfusepath{stroke}
+\fihere\PsingletonsA{#1}{#2}\fi}
+
+\def\Pblock #1to#2:#3 {\PblockA{#1}{#2}#3,,}
+\def\PblockA#1#2#3,#4,{\ifx,#4,\else
+\pgfpathmoveto{\pgfpointxy{#3}{#1}}
+\pgfpathlineto{\pgfpointxy{#3}{#2}}
+\pgfpathlineto{\pgfpointxy{#4}{#2}}
+\pgfpathlineto{\pgfpointxy{#4}{#1}}
+\pgfusepath{stroke}
+\fihere\PblockA{#1}{#2}#4,\fi}
+
+\def\Ptext(#1,#2)#3{%
+\pgftext[at={\pgfpointxy{#1}{#2}}]{#3}
+}
+
+\def\Pcolw{0.1}
+\def\Pb#1#2{
+	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}
+}
+
+\def\Pw#1#2{
+	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
+	\pgfsetfillcolor{white}
+	\pgfusepath{stroke,fill}
+}
+
+\def\Ls#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfsetarrowsend{to}
+	\pgfpathmoveto{\pgfpointorigin}
+	\pgfpathlineto{\pgfpointxy{0}{1}}
+	\pgfusepath{stroke}
+	\pgftransformreset
+	\pgfsetarrowsend{}
+}
+
+\def\Us#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfsetarrowsend{to}
+	\pgfpathmoveto{\pgfpointorigin}
+	\pgfpathlineto{\pgfpoint{0}{-1}}
+	\pgfusepath{stroke}
+	\pgftransformreset
+	\pgfsetarrowsend{}
+}
+
+\def\Ppoint #1 #2:#3 {\PpointA{#1}{#2}#3,,}
+\def\PpointA#1#2#3,{\ifx,#3,\else #2{#3}{#1}\fihere\PpointA{#1}{#2}\fi}
+
+\def\Lsingletons #1#2 {%
+	\ifcat\noexpand#1\noexpand\ \Ppoint0 #1#2 \else\Psingletons 0to#1#2 \fi
+}
+\def\Usingletons #1#2 {%
+	\ifcat\noexpand#1\noexpand\ \Ppoint1 #1#2 \else\Psingletons 1to#1#2 \fi
+}
+
+
+\def\LPartition#1#2{\Partition{
+\LPartitionB#2;;
+\LPartitionA#1;;
+}}
+
+\def\LPartitionA#1;{\ifx;#1;\else
+\Lsingletons #1 
+\fihere\LPartitionA\fi}
+
+\def\LPartitionB#1;{\ifx;#1;\else
+\Pblock 0to#1 
+\fihere\LPartitionB\fi}
+
+\def\UPartition#1#2{\Partition{
+\UPartitionB#2;;
+\UPartitionA#1;;
+}}
+
+\def\UPartitionA#1;{\ifx;#1;\else
+\Usingletons #1 
+\fihere\UPartitionA\fi}
+
+\def\UPartitionB#1;{\ifx;#1;\else
+\Pblock 1to#1 
+\fihere\UPartitionB\fi}

@@ -1,0 +1,411 @@
+\def\coldef#1#2{\def#1{{
+\mathchoice{\kern0.1ex\raise0.15ex\hbox{\def\Pcolw{0.15}\pgfpicture\pgfsetlinewidth{\Pwidth em}#2{0}{0}\endpgfpicture}\kern0.1ex}{\kern0.1ex\raise0.15ex\hbox{\def\Pcolw{0.15}\pgfpicture\pgfsetlinewidth{\Pwidth em}#2{0}{0}\endpgfpicture}\kern0.1ex}{\pgfpicture\pgfsetlinewidth{\Pwidth em}#2{0}{0}\endpgfpicture}{\pgfpicture\pgfsetlinewidth{\Pwidth em}#2{0}{0}\endpgfpicture}}}
+}
+
+%%%%%UNITARY COLORING
+%\def\bcol{\pgfpicture\Pb{0}{0}\endpgfpicture\kern0.1ex}
+%\def\wcol{\pgfpicture\Pw{0}{0}\endpgfpicture\kern0.1ex}
+\coldef\bcol\Pb
+\coldef\wcol\Pw
+
+\def\idpartww{\Partition{
+	\Pline (1,0) (1,1)
+	\Ppoint0 \Pw:1
+	\Ppoint1 \Pw:1
+}}
+\def\idpartbw{\Partition{
+	\Pline (1,0) (1,1)
+	\Ppoint0 \Pw:1
+	\Ppoint1 \Pb:1
+}}
+\def\idpartwb{\Partition{
+	\Pline (1,0) (1,1)
+	\Ppoint0 \Pb:1
+	\Ppoint1 \Pw:1
+}}
+\def\idpartbb{\Partition{
+	\Pline (1,0) (1,1)
+	\Ppoint0 \Pb:1
+	\Ppoint1 \Pb:1
+}}
+\def\singletonw{\LPartition{\Ls:1;\Pw:1}{}}
+\def\singletonb{\LPartition{\Ls:1;\Pb:1}{}}
+\def\upsingletonw{\UPartition{\Us:1;\Pw:1}{}}
+\def\pairpartww{\LPartition{\Pw:1,2}{0.6:1,2}}
+\def\pairpartbb{\LPartition{\Pb:1,2}{0.6:1,2}}
+\def\pairpartwb{\LPartition{\Pw:1;\Pb:2}{0.6:1,2}}
+\def\pairpartbw{\LPartition{\Pb:1;\Pw:2}{0.6:1,2}}
+\def\uppairpartww{\UPartition{\Pw:1,2}{0.4:1,2}}
+\def\uppairpartwb{\UPartition{\Pw:1;\Pb:2}{0.4:1,2}}
+\def\uppairpartbw{\UPartition{\Pb:1;\Pw:2}{0.4:1,2}}
+\def\uppairpartbw{\UPartition{\Pb:1;\Pw:2}{0.4:1,2}}
+\def\fourpartwwbb{\LPartition{\Pw:1,2;\Pb:3,4}{0.6:1,2,3,4}}
+\def\fourpartwbwb{\LPartition{\Pw:1,3;\Pb:2,4}{0.6:1,2,3,4}}
+\def\Labacwwbb{\LPartition{0.4:2,4;\Pw:1,2;\Pb:3,4}{0.8:1,3}}
+\def\Labacwbwb{\LPartition{0.4:2,4;\Pw:1,3;\Pb:2,4}{0.8:1,3}}
+\def\Pabww{\Partition{
+\Psingletons 1to0.7:1
+\Psingletons 0to0.3:1
+\Ppoint 0 \Pw:1
+\Ppoint 1 \Pw:1
+}}
+\def\positionerpartwwww{\Partition{
+\Psingletons 1to0.6:2
+\Psingletons 0to0.4:1
+\Pline (1,1)(2,0)
+\Ppoint 0 \Pw:1,2
+\Ppoint 1 \Pw:1,2
+}}
+\def\Paabbwwww{\Partition{
+\Pblock 1to0.65:1,2
+\Pblock 0to0.35:1,2
+\Ppoint 0 \Pw:1,2
+\Ppoint 1 \Pw:1,2
+}}
+\def\crosspartwwww{\Partition{
+\Pline (1,1)(2,0)
+\Pline (2,1)(1,0)
+\Ppoint0 \Pw:1,2
+\Ppoint1 \Pw:1,2
+}}
+\def\crosspartwwbb{\Partition{
+\Pline (1,1)(2,0)
+\Pline (2,1)(1,0)
+\Ppoint0 \Pb:1,2
+\Ppoint1 \Pw:1,2
+}}
+\def\halflibpartwwwwww{\Partition{
+\Pline (1,1)(3,0)
+\Pline (2,1)(2,0)
+\Pline (3,1)(1,0)
+\Ppoint0 \Pw:1,2,3
+\Ppoint1 \Pw:1,2,3
+}}
+\def\Paaaawwww{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Ppoint0 \Pw:1,2
+\Ppoint1 \Pw:1,2
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+\def\Paaaabbbb{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Ppoint0 \Pb:1,2
+\Ppoint1 \Pb:1,2
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+\def\Paaaawbbw{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Ppoint0 \Pw:2
+\Ppoint0 \Pb:1
+\Ppoint1 \Pw:2
+\Ppoint1 \Pb:1
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+\def\Paaaabwwb{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Ppoint0 \Pw:1
+\Ppoint0 \Pb:2
+\Ppoint1 \Pw:1
+\Ppoint1 \Pb:2
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+\def\Paaaawbwb{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Ppoint0 \Pw:1
+\Ppoint0 \Pb:2
+\Ppoint1 \Pw:2
+\Ppoint1 \Pb:1
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+\def\Paaaabwbw{\Partition{
+\Pblock 0to0.3:1,2
+\Pblock 1to0.7:1,2
+\Ppoint0 \Pw:2
+\Ppoint0 \Pb:1
+\Ppoint1 \Pw:1
+\Ppoint1 \Pb:2
+\Pline (1.5,0.3) (1.5,0.7)
+}}
+
+\def\blockpartw{%
+\Partition{
+\Pblock 0to0.6:1,2,4
+\Ptext(3,0.2){\dots}
+\Ppoint0 \Pw:1,2,4
+}}
+
+\def\Lss#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfsetarrowsend{to}
+	\pgfpathmoveto{\pgfpointorigin}
+	\pgfpathlineto{\pgfpoint{0}{0.7em}}
+	\pgfusepath{stroke}
+	\pgftransformreset
+	\pgfsetarrowsend{}
+}
+\def\Labacwwbbd#1{\Partition{
+\Pblock 0to1:1,3.5
+\Ppoint0 \Lss:2,4.5
+\Ppoint0 \Pw:1,2
+\Ppoint0 \Pb:3.5,4.5
+\Ptext(2.7,0.5){${}^{\otimes #1}$}
+\Ptext(5.2,0.5){${}^{\otimes #1}$}
+}}
+\def\Labacwwwbd#1{\Partition{
+\Pblock 0to1:1,3.5
+\Ppoint0 \Lss:2,4.5
+\Ppoint0 \Pw:1,2,3.5
+\Ppoint0 \Pb:4.5
+\Ptext(2.7,0.5){${}^{\otimes #1}$}
+\Ptext(5.2,0.5){${}^{\otimes #1}$}
+}}
+
+%TWO SELF-DUAL COLORS (SQUARES)
+
+\def\Psq#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-\Pcolw em}{-\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{-\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{-\Pcolw em}}
+	\pgfpathclose
+	\pgfsetfillcolor{white}
+	\pgfusepath{stroke,fill}
+	\pgftransformreset
+}
+
+\def\Pbsq#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-\Pcolw em}{-\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{-\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{-\Pcolw em}}
+	\pgfpathclose
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}
+	\pgftransformreset
+}
+%\def\bsqcol{\pgfpicture\Pbsq{0}{0}\endpgfpicture\kern0.1ex}
+%\def\sqcol{\pgfpicture\Psq{0}{0}\endpgfpicture\kern0.1ex}
+\coldef\bsqcol\Pbsq
+\coldef\sqcol\Psq
+
+\def\Pxaxa{
+	\Partition{
+	\Pline(2,0)(1,1)
+	\Pline(1,0)(2,1)
+	\Ppoint0 \Psq:1
+	\Ppoint0 \Pw:2
+	\Ppoint1 \Pw:1
+	\Ppoint1 \Psq:2
+}}
+
+\def\PAXAX{
+	\Partition{
+	\Pline(2,0)(1,1)
+	\Pline(1,0)(2,1)
+	\Ppoint0 \Pbsq:2
+	\Ppoint0 \Pb:1
+	\Ppoint1 \Pb:2
+	\Ppoint1 \Pbsq:1
+}}
+
+\def\PxBaxaB{
+	\Partition{
+	\Pline(1,1)(2,0)
+	\Pline(2,1)(3,0)
+	\Pline(3,1)(1,0)
+	\Ppoint1 \Pw:1
+	\Ppoint1 \Pb:2
+	\Ppoint1 \Psq:3
+	\Ppoint0 \Psq:1
+	\Ppoint0 \Pw:2
+	\Ppoint0 \Pb:3
+}}
+
+\def\PxbAxAb{
+	\Partition{
+	\Pline(1,1)(2,0)
+	\Pline(2,1)(3,0)
+	\Pline(3,1)(1,0)
+	\Ppoint1 \Pb:1
+	\Ppoint1 \Pw:2
+	\Ppoint1 \Psq:3
+	\Ppoint0 \Psq:1
+	\Ppoint0 \Pb:2
+	\Ppoint0 \Pw:3
+}}
+
+\def\PyXaXya{
+	\Partition{
+	\Pline(1,1)(3,0)
+	\Pline(2,1)(1,0)
+	\Pline(3,1)(2,0)
+	\Ppoint1 \Pw:1
+	\Ppoint1 \Pbsq:2
+	\Ppoint1 \Psq:3
+	\Ppoint0 \Pbsq:1
+	\Ppoint0 \Psq:2
+	\Ppoint0 \Pw:3
+}}
+
+\def\PYxaxYa{
+	\Partition{
+	\Pline(1,1)(3,0)
+	\Pline(2,1)(1,0)
+	\Pline(3,1)(2,0)
+	\Ppoint1 \Pw:1
+	\Ppoint1 \Psq:2
+	\Ppoint1 \Pbsq:3
+	\Ppoint0 \Psq:1
+	\Ppoint0 \Pbsq:2
+	\Ppoint0 \Pw:3
+}}
+
+\def\PBaxaBX{
+	\Partition{
+	\Pline(2,1)(2,0)
+	\Pline(3,1)(3,0)
+	\Pblock 0to0.5:1,4
+	\Ppoint1 \Pw:2
+	\Ppoint1 \Pb:3
+	\Ppoint0 \Psq:1
+	\Ppoint0 \Pbsq:4
+	\Ppoint0 \Pw:2
+	\Ppoint0 \Pb:3
+}}
+
+%EXTRA SINGLETONS
+
+\def\Lt#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-0.14em}{0em}}
+	\pgfpathlineto{\pgfpoint{0em}{0.25em}}
+	\pgfpathlineto{\pgfpoint{0.14em}{0em}}
+	\pgfpathclose
+	\pgfusepath{stroke}
+	\pgftransformreset
+}
+\def\Ut#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-0.14em}{0em}}
+	\pgfpathlineto{\pgfpoint{0em}{-0.25em}}
+	\pgfpathlineto{\pgfpoint{0.14em}{0em}}
+	\pgfpathclose
+	\pgfusepath{stroke}
+	\pgftransformreset
+}
+\def\Ltb#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-0.14em}{0em}}
+	\pgfpathlineto{\pgfpoint{0em}{0.25em}}
+	\pgfpathlineto{\pgfpoint{0.14em}{0em}}
+	\pgfpathclose
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}
+	\pgftransformreset
+}
+\def\Utb#1#2{
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-0.14em}{0em}}
+	\pgfpathlineto{\pgfpoint{0em}{-0.25em}}
+	\pgfpathlineto{\pgfpoint{0.14em}{0em}}
+	\pgfpathclose
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}
+	\pgftransformreset
+}
+\coldef\tricol\Lt
+\let\twcol=\tricol
+\coldef\tbcol\Ltb
+\def\lincol{\kern0.1ex
+	\pgfpicture
+	\pgfsetlinewidth{\Pwidth em}
+	\pgfpathmoveto{\pgfpointorigin}
+	\pgfpathlineto{\pgfpoint{0em}{0.5em}}
+	\pgfusepath{stroke}
+	\endpgfpicture\kern0.1ex}
+
+\def\dotcol{\kern0.1ex
+	\pgfpicture
+	\pgfsetlinewidth{\Pwidth em}
+	\pgfpathmoveto{\pgfpointorigin}
+	\pgfpathlineto{\pgfpoint{0em}{0.5em}}
+	\pgfsetdash{{\pgflinewidth}{0.1em}}{0.1em}
+	\pgfusepath{stroke}
+	\endpgfpicture\kern0.1ex}
+
+\def\PDline(#1,#2)#3(#4,#5){
+\pgfpathmoveto{\pgfpointxy{#1}{#2}}
+\pgfpathlineto{\pgfpointxy{#4}{#5}}
+\pgfsetdash{{\pgflinewidth}{1pt}}{0pt}
+\pgfusepath{stroke}
+\pgfsetdash{}{0pt}
+}
+
+\def\PDblock #1to#2:#3 {\PDblockA{#1}{#2}#3,,}
+\def\PDblockA#1#2#3,#4,{\ifx,#4,\else
+\pgfpathmoveto{\pgfpointxy{#3}{#1}}
+\pgfpathlineto{\pgfpointxy{#3}{#2}}
+\pgfpathlineto{\pgfpointxy{#4}{#2}}
+\pgfpathlineto{\pgfpointxy{#4}{#1}}
+\pgfsetdash{{\pgflinewidth}{1pt}}{0pt}
+\pgfusepath{stroke}
+\pgfsetdash{}{0pt}
+\fihere\PblockA{#1}{#2}#4,\fi}
+
+\def\Didpart{\Partition{
+\PDline(1,0)(1,1)
+}}
+
+\def\singext{\pgfpicture\pgfsetlinewidth{\Pwidth em}\Lt{0}{0}\endpgfpicture}
+\def\upsingext{\UPartition{\Ut:1}{}}
+\def\idext{
+	\Partition{
+	\Ppoint0 \Lt:1
+	\Ppoint1 \Ut:1
+	}}
+\def\positionerext{
+	\Partition{
+	\Ppoint0 \Lt:1
+	\Ppoint1 \Ut:2
+	\Pline(2,0)(1,1)
+	}}
+\def\globcolext{
+	\Partition{
+	\Ppoint0 \Lt:1
+	\Ppoint1 \Ut:3
+	\Pline(2,0)(1,1)
+	\Pline(3,0)(2,1)
+	}}
+\def\Psa{
+	\Partition{
+	\Ppoint1 \Ut:1
+	\Psingletons0to0.3:1
+	}}
+
+\def\positionerextwwbb{
+\Partition{
+\Pline (1,1)(2,0)
+\Ppoint1 \Pw:1
+\Ppoint0 \Pb:2
+\Ppoint1.1 \Ut:2
+\Ppoint-0.1 \Ltb:1
+}}
+
+\def\globcolextcol{
+\Partition{
+\Pline (2,1)(2,0)
+\Pline (3,1)(3,0)
+\Ppoint1 \Pw:2
+\Ppoint1 \Pb:3
+\Ppoint0 \Pb:2
+\Ppoint0 \Pw:3
+\Ppoint-0.1 \Ltb:1
+\Ppoint-0.1 \Lt:4
+}}
