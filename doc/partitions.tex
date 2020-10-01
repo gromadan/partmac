@@ -18,7 +18,10 @@
 
 \tit Partmac -- typesetting set partitions
 
-The file "partmac.tex" contains macros for typesetting set partitions, which are used for example in free probability or the theory of easy quantum groups. The macros use PGF (the ground layer of Ti$k$Z) to draw the partitions. So, to use "partmac", one has to install PGF (or Ti$k$Z) first. Then, one can write in \TeX
+{\hfil\it Daniel Gromada, 2020}
+\nobreak\bigskip
+
+The file "partmac.tex" contains macros for typesetting set partitions, which are used for example in free probability or the theory of easy quantum groups. The macros use PGF (the ground layer of Ti$k$Z) to draw the partitions. So, to use "partmac", one has to install PGF (or Ti$k$Z) first. Then, one can write in plain\TeX
 \begtt
 \input pgfcore
 \input partmac
@@ -27,8 +30,6 @@ For \LaTeX users, I've prepared the file "parmac.sty", which includes PGF automa
 \begtt
 \usepackage{partmac}
 \endtt
-
-The macros are written in the spirit of plain\TeX. Instead of trying to make them universal (which is usually impossible), they are written simply enough that everybody can edit them to achieve their needs.
 
 The main aim of the package is to provide an easy to use tool for drawing set partitions. It provides an universal description of partitions in such a way that the result adjusts its proportions according to the context. So, one can use the same commands for drawing a partition in a title of a chapter, inside paragraph, or as an index of some mathematical symbol.
 
