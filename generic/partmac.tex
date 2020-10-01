@@ -236,7 +236,9 @@
 %%The macros
 
 \def\textchoice#1#2#3#4#5{\ifmmode\mathchoice{#1}{#2}{#3}{#4}\else #5\fi}
+\def\fihere#1\fi{\fi#1}
 
+%definition of the \Partition command
 \def\Partition#1{\def\Ptmp{#1}%
 \futurelet\nextchar\PartitionB
 }
@@ -265,6 +267,16 @@
 \thinspace
 }
 
+\newcount\tmpx
+\newcount\tmpy
+\def\PartitionB{\if[\nextchar\let\next=\PartitionC\else\let\next=\PartitionD\fi\next}
+\def\BigPartitionB{\if[\nextchar\let\next=\BigPartitionC\else\let\next=\BigPartitionD\fi\next}
+\def\PartitionC[#1]{\tmpx=0\tmpy=0\expandafter\def\expandafter\Ptmp\expandafter{\Ptmp\Ppointlist#1]}\PartitionD}
+\def\BigPartitionC[#1]{\tmpx=0\tmpy=0\expandafter\def\expandafter\Ptmp\expandafter{\Ptmp\Ppointlist#1]}\BigPartitionD}
+
+\def\Ppointlist#1{\advance\tmpx by 1\if#1]\else
+	\csname P#1\endcsname(\the\tmpx,\the\tmpy)
+	\fihere\Ppointlist\fi}
 
 \def\Pwidth{0.05}
 
@@ -278,21 +290,7 @@
 \endpgfpicture
 }
 
-\newcount\tmpx
-\newcount\tmpy
-\def\PartitionB{\if[\nextchar\let\next=\PartitionC\else\let\next=\PartitionD\fi\next}
-\def\BigPartitionB{\if[\nextchar\let\next=\BigPartitionC\else\let\next=\BigPartitionD\fi\next}
-\def\PartitionC[#1]{\tmpx=0\tmpy=0\expandafter\def\expandafter\Ptmp\expandafter{\Ptmp\Ppointlist#1]}\PartitionD}
-\def\BigPartitionC[#1]{\tmpx=0\tmpy=0\expandafter\def\expandafter\Ptmp\expandafter{\Ptmp\Ppointlist#1]}\BigPartitionD}
-
-\expandafter\def\csname P/\endcsname{\advance\tmpy by1 \tmpx=0}
-\expandafter\def\csname P0\endcsname{}
-
-\def\Ppointlist#1{\advance\tmpx by 1\if#1]\else
-	\csname P#1\endcsname(\the\tmpx,\the\tmpy)
-	\fihere\Ppointlist\fi}
-
-\def\fihere#1\fi{\fi#1}
+%\Pline, \Psingletons, \Pblock, \Ptext,...
 
 \def\Pline(#1,#2)#3(#4,#5){
 \pgfpathmoveto{\pgfpointxy{#1}{#2}}
@@ -320,38 +318,7 @@
 \pgftext[at={\pgfpointxy{#1}{#2}}]{#3}
 }
 
-\def\Pcolw{0.1}
-\def\Pb (#1,#2){
-	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
-	\pgfsetfillcolor{black}
-	\pgfusepath{stroke,fill}
-}
-
-\def\Pw (#1,#2){
-	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
-	\pgfsetfillcolor{white}
-	\pgfusepath{stroke,fill}
-}
-
-\def\Ps#1(#2,#3){
-	\pgfsetarrowsend{to}
-	\pgfpathmoveto{\pgfpointxy{#2}{#3}}
-	\pgfpathlineto{\pgfpointxy{#2}{#1}}
-	\pgfusepath{stroke}
-	\pgftransformreset
-	\pgfsetarrowsend{}
-}
-
-\def\Ppoint #1 #2:#3 {\PpointA{#1}{#2}#3,,}
-\def\PpointA#1#2#3,{\ifx,#3,\else #2(#3,#1)\fihere\PpointA{#1}{#2}\fi}
-
-\def\Lsingletons #1#2 {%
-	\ifcat\noexpand#1\noexpand\ \Ppoint0 #1#2 \else\Psingletons 0to#1#2 \fi
-}
-\def\Usingletons #1#2 {%
-	\ifcat\noexpand#1\noexpand\ \Ppoint1 #1#2 \else\Psingletons 1to#1#2 \fi
-}
-
+%\LPartition,\Upartition
 
 \def\LPartition#1#2{\Partition{
 \LPartitionB#2;;
@@ -379,18 +346,40 @@
 \Pblock 1to#1 
 \fihere\UPartitionB\fi}
 
-\def\coldefA #1 #2{\kern0.1ex\vcenter{\hbox{\def\Pcolw{#1}\pgfpicture#2(0,0)\endpgfpicture}}\kern0.1ex}
+\def\Lsingletons #1#2 {%
+	\ifcat\noexpand#1\noexpand\ \Ppoint0 #1#2 \else\Psingletons 0to#1#2 \fi
+}
+\def\Usingletons #1#2 {%
+	\ifcat\noexpand#1\noexpand\ \Ppoint1 #1#2 \else\Psingletons 1to#1#2 \fi
+}
 
-\def\coldef#1#2{\def#1{{\textchoice
-{\coldefA 0.15 #2}{\coldefA 0.15 #2}{\coldefA 0.1 #2}{\coldefA 0.08 #2}{$\coldefA 0.15 #2$}}}}
+%colors
 
-\coldef\bcol\Pb
-\coldef\wcol\Pw
-\coldef\qcol\Pq
-\coldef\Qcol\PQ
-\coldef\tcol\Lt
-\coldef\Tcol\LT
+\def\Pcolw{0.1}
 
+\expandafter\def\csname P/\endcsname{\advance\tmpy by1 \tmpx=0}
+\expandafter\def\csname P0\endcsname{}
+
+\def\Pw (#1,#2){
+	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
+	\pgfsetfillcolor{white}
+	\pgfusepath{stroke,fill}
+}
+
+\def\Pb (#1,#2){
+	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}
+}
+
+\def\Ps#1(#2,#3){
+	\pgfsetarrowsend{to}
+	\pgfpathmoveto{\pgfpointxy{#2}{#3}}
+	\pgfpathlineto{\pgfpointxy{#2}{#1}}
+	\pgfusepath{stroke}
+	\pgftransformreset
+	\pgfsetarrowsend{}
+}
 
 \def\Pq (#1,#2){
 	\pgftransformshift{\pgfpointxy{#1}{#2}}
@@ -462,6 +451,22 @@
 	\pgfusepath{stroke,fill}}
 	\pgftransformreset
 }
+
+\def\Ppoint #1 #2:#3 {\PpointA{#1}{#2}#3,,}
+\def\PpointA#1#2#3,{\ifx,#3,\else #2(#3,#1)\fihere\PpointA{#1}{#2}\fi}
+
+\def\coldefA #1 #2{\kern0.1ex\vcenter{\hbox{\def\Pcolw{#1}\pgfpicture#2(0,0)\endpgfpicture}}\kern0.1ex}
+
+\def\coldef#1#2{\def#1{{\textchoice
+{\coldefA 0.15 #2}{\coldefA 0.15 #2}{\coldefA 0.1 #2}{\coldefA 0.08 #2}{$\coldefA 0.15 #2$}}}}
+
+\coldef\bcol\Pb
+\coldef\wcol\Pw
+\coldef\qcol\Pq
+\coldef\Qcol\PQ
+\coldef\tcol\Lt
+\coldef\Tcol\LT
+
 \def\idext{
 	\Partition{
 	\Ppoint0 \Lt:1
