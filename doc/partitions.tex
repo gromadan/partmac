@@ -1,5 +1,5 @@
 \input opmac
-\input pgfcore
+\input tikz
 \input partmac
 
 \typosize[12/14]
@@ -14,16 +14,16 @@
 \def<#1>{\hbox{$\langle$\it#1\/$\rangle$}}
 
 \def\titfont{\typobase\typoscale[\magstep2/\magstep2]\bfshape}
-\def\secfont{\typobase\typoscale[\magstep1/\magstep1]\bfshape}
+\def\seccfont{\typobase\typoscale[\magstep1/\magstep1]\bfshape}
 
 \tit Partmac -- typesetting set partitions
 
-The file "partmac.tex" contains macros for typesetting set partitions, which are used for example in free probability or the theory of easy quantum groups. The macros use the PGF package to draw the partition. Thus, to use "partmac" one needs to install PGF and then in plain\TeX, one can write
+The file "partmac.tex" contains macros for typesetting set partitions, which are used for example in free probability or the theory of easy quantum groups. The macros use PGF (the ground layer of Ti$k$Z) to draw the partitions. So, to use "partmac", one has to install PGF (or Ti$k$Z) first. Then, one can write in \TeX
 \begtt
 \input pgfcore
 \input partmac
 \endtt
-For \LaTeX users, I've prepared the file {\tt parmac.sty}, which includes PGF automatically, so it is sufficient to write
+For \LaTeX users, I've prepared the file "parmac.sty", which includes PGF automatically, so it is sufficient to write
 \begtt
 \usepackage{partmac}
 \endtt
@@ -32,7 +32,9 @@ The macros are written in the spirit of plain\TeX. Instead of trying to make the
 
 The main aim of the package is to provide an easy to use tool for drawing set partitions. It provides an universal description of partitions in such a way that the result adjusts its proportions according to the context. So, one can use the same commands for drawing a partition in a title of a chapter, inside paragraph, or as an index of some mathematical symbol.
 
-\sec Predefined partitions
+\sec Basic usage
+
+\secc Predefined partitions
 
 There are macros of the form "\Lxxxx" for partitions on lower line, "\Uxxxx" for partitions on upper line and "\Pxxxx" for partitions with the same ammount of upper and lower points. Here "xxxx" is the lexicographically smallest word representation of the partiiton. That is, we have the following macros for partitions with points on the lower line.
 
@@ -82,9 +84,9 @@ In addition, we define the following synonyms.
 "\uppairpart"  & $\uppairpart$   & \qquad & "\connecterpart"    & $\connecterpart$    & \qquad & 
 \etable
 
-\sec Partitions on one line
+\secc Partitions on one line
 
-To define a general partition with points only on the lower or upper line, one can use macro "\Lpartition", resp. "\Upartition". The syntax is the following.
+To define a general partition with points only on the lower or upper line, one can use macro "\Lpartition", resp.\ "\Upartition". The syntax is the following.
 \begtt
 \LPartition{<singletons>}{<remaining blocks>}
 \endtt
@@ -92,15 +94,15 @@ The datum <singletons> should be of the form $h:i_1,i_2,\dots,i_k$, where $h$ is
 
 Let us show this on example.
 $$"\LPartition{0.4:1,4,8}{0.4:2,3;0.4:5,7;0.8:6,9,10}"\qquad \LPartition{0.4:1,4,8}{0.4:2,3;0.4:5,7;0.8:6,9,10}$$
-Here, the singletons are on position 1, 4, 8 and each of them is represented by a line of height 0.4. Then there are three additional blocks. First connecting points 2 and 3 is represented by a node of height 0.4 (that is, the same as the singletons). Second block connects points 5 and 7 and has the same height. Finally a block connecting points 6, 9, 10 has double height, that is, 0.8.
+Here, the singletons are on position 1, 4, 8 and each of them is represented by a line of height 0.4. Then there are three additional blocks. First connecting points 2 and 3 is represented by a link of height 0.4 (that is, the same as the singletons). Second block connects points 5 and 7 and has the same height. Finally a block connecting points 6, 9, 10 has double height, that is, 0.8.
 
-The macro "\UPartition" works the same. Except that instead of the height, we should put $1-{\rm height}$, that is, we put there actually the $y$-coordinate of the point. That means, to obtain the same result horizontally flipped, we have to write down
+The macro "\UPartition" works the same. Except that instead of the height, we should put $1-{\rm height}$, that is, we put there actually the $y$-coordinate of the point. So, to obtain the same result horizontally flipped, we have to write down
 $$"\UPartition{0.6:1,4,8}{0.6:2,3;0.6:5,7;0.2:6,9,10}"\qquad\UPartition{0.6:1,4,8}{0.6:2,3;0.6:5,7;0.2:6,9,10}$$
 
 The units are chosen in such a way that one should keep the height between 0 and 1 to stick within the line in a paragraph. However, the macro works also if you put there higher numbers, which can be used especially in display mode. For example
 $$"\LPartition{0.6:1,4,8}{0.6:2,3;0.6:5,7;1.2:6,9,10}"\qquad\LPartition{0.6:1,4,8}{0.6:2,3;0.6:5,7;1.2:6,9,10}$$
 
-\sec General partitions
+\secc General partitions
 
 To draw general partitions with upper and lower points, one can use "\Partition{<data>}". The data can consist of the following commands.
 {\def\tthook{\catcode`\$=3 \catcode`/=0 \catcode`_=8 \medmuskip=0mu \adef{ }{ }}%
@@ -126,7 +128,7 @@ Here, $x_1$ and $x_2$ represent the $x$ coordinates (i.e. position of a point) a
 }
 \endtt
 
-For drawing more complicated partitions, one can use the "\BigPartition{<data>}", which works exactly the same, but produces a larger result. Another difference is that "\BigPartition" aligns the middle of the partition, i.e. the point $y=0.5$ with the equals sign. So, for example the result
+For more complicated partitions, one can use "\BigPartition{<data>}", which works exactly the same, but produces a larger result. Another difference is that "\BigPartition" aligns the middle of the partition, i.e. the point $y=0.5$ with the equals sign. So, for example the result
 $$
 p=
 \BigPartition{
@@ -165,7 +167,7 @@ q=
 }$$
 \endtt
 
-\sec Adding text
+\secc Adding text
 
 To add text, one can use "\Ptext(<x>,<y>){<text>}", where <x> and <y> are coordinates and <text> is any \TeX{} code. The <text> is wrapped in a box, whose center is described by the coordinates. An example:
 
@@ -207,9 +209,120 @@ $
 
 \sec Coloring points
 
-In this section, we describe how to assign different shapes to the set of partitioned points to obtained so-called colored partitions. In the package, we prepared two colors. Command "\Pw" is used to draw white circle \Partition{\Ppoint 0.5 \Pw:1} and "\Pb" is used to draw black circle \Partition{\Ppoint 0.5 \Pb:1}.
+In this section, we describe how to assign different shapes to the set of partitioned points to obtain so-called colored partitions.
 
-For partitions with lower or upper points only, one can use "\LPartition" resp. "\UPartition" and specify the colorings in the <singletons> parameter. An example:
+\secc Bracket syntax
+
+We start with coloring the points using white $\wcol$ and black $\bcol$ circle. This can be achieved by encoding the partition coloring in brackets
+\begtt
+\Partition{...}[<coloring of the lower row>/<coloring of the upper row>]
+\Partition{...}[<coloring of the lower row>]
+\endtt
+
+Here, <coloring of the lower/upper row> is a string made of letters "w" and "b" encoding the white and black circles. This notation can be used also for all the other macros for typesetting partitions like "\BigPartition", "\LPartition", "\UPartition", "\Lxxxx", "\Uxxxx", even for user-defined macros.
+
+So, let us look on some examples:
+\bigskip\hfil
+{\def\tabstrut{\vrule height 1em depth 0.5em width 0em}
+\tableverb{ll}
+"\Laaba[bwwwb]"          & \Laaba[bwwb]\cr
+"\connecterpart[wb/ww]"  & \connecterpart[wb/ww]\cr
+"\UPartition{0.6:1,4,8}{0.6:2,3;0.6:5,7;0.2:6,9,10}"\cr
+\qquad"[/wbbbwwbwbb]"&\UPartition{0.6:1,4,8}{0.6:2,3;0.6:5,7;0.2:6,9,10}[/wbbbwwbwbb]$$
+\etable}\bigskip
+
+As mentioned above, even if we define some own partition macro such as\fnote{If you are using \LaTeX, you should maybe rather write {\tt\char`\\newcommand\char`\{\char`\\myfavouriteexample\char`\}\char`\{...\char`\}}}
+\begtt
+\def\myfavouriteexample{
+\BigPartition{
+\Pblock 0 to 0.25:2,3
+\Pblock 1 to 0.75:1,2,3
+\Psingletons 0 to 0.25:1,4
+\Pline (2.5,0.25) (2.5,0.75)
+}}
+\endtt
+\def\myfavouriteexample{%
+\BigPartition{
+\Pblock 0 to 0.25:2,3
+\Pblock 1 to 0.75:1,2,3
+\Psingletons 0 to 0.25:1,4
+\Pline (2.5,0.25) (2.5,0.75)
+}}
+Then we can just write "\myfavouriteexample[wwbb/bwb]" to obtain \myfavouriteexample[wwbb/bwb].
+
+Besides black and white circles, you can also draw black and white square using letters "Q" and "q" instead of "b" and "w". For example "\crosspart[qw/bQ]" gives \crosspart[qw/bQ]. If you want to skip some point, write "0" in that place. For example "\fourpart[w0b0]" gives \fourpart[w0b0].
+
+\secc Finer placement of the points, additional shapes
+
+The above described approach allows us to place the circles only to the points with coordinates $x=1,2,\dots$ and $y=0,1$.\fnote{If you have the spirit of an experimenter, you may find out that we can actually reach any $y=0,1,2,\dots$} We may want to place the points also to different places. Here is how to do that.
+
+First, we have the commands "\Pw(<x>,<y>)" and "\Pb(<x>,<y>)" that can be used inside "\Partition" or "\BigPartition", so we can write
+$$\vcenter{\hsize=0.7\hsize
+\begtt
+$$
+\BigPartition{
+\Pblock 0 to 0.25:2,3
+\Pblock 1 to 0.75:1,2,3
+\Psingletons 0 to 0.25:1,4
+\Pline (2.5,0.25) (2.5,0.75)
+\Pw (2.3,0.4) \Pw (4.6,0.9)
+\Pw (1.7,0.8) \Pw (5.8,0.2)
+\Pb (1.2,0.1) \Pb (3.5,0.6)
+\Pb (1.5,0.5) \Pb (3.1,0.4)
+}$$
+\endtt
+}
+\vcenter{
+$\displaystyle
+\BigPartition{
+\Pblock 0 to 0.25:2,3
+\Pblock 1 to 0.75:1,2,3
+\Psingletons 0 to 0.25:1,4
+\Pline (2.5,0.25) (2.5,0.75)
+\Pw (2.3,0.4)
+\Pw (4.6,0.9)
+\Pw (1.7,0.8)
+\Pw (5.8,0.2)
+\Pb (1.2,0.1)
+\Pb (3.5,0.6)
+\Pb (1.5,0.5)
+\Pb (3.1,0.4)
+}
+$}$$
+
+Alternatively, one can use the construction "\Ppoint <y> <shape>:<positions>", where <shape> is either "\Pw" or "\Pb". For example,
+
+$$
+\vcenter{\hsize=0.7\hsize
+\begtt
+\BigPartition{
+\Psingletons 0 to 0.25:1,4
+\Psingletons 1 to 0.75:1,4
+\Pline (2,0) (3,1)
+\Pline (3,0) (2,1)
+\Pline (2.75,0.25) (4,0.25)
+\Ppoint0 \Pw:2,4
+\Ppoint0 \Pb:1,3
+\Ppoint1 \Pw:1,2,3
+\Ppoint1 \Pb:4
+}
+\endtt
+}
+\vcenter{\hsize=0.3\hsize $\displaystyle
+\BigPartition{
+\Psingletons 0 to 0.25:1,4
+\Psingletons 1 to 0.75:1,4
+\Pline (2,0) (3,1)
+\Pline (3,0) (2,1)
+\Pline (2.75,0.25) (4,0.25)
+\Ppoint0 \Pw:2,4
+\Ppoint0 \Pb:1,3
+\Ppoint1 \Pw:1,2,3
+\Ppoint1 \Pb:4
+}$}
+$$
+
+The commands "\Pw" and "\Pb" can also be used within "\LPartition" or "\UPartition" in the <singletons> parameter as follows:
 $$\vcenter{\hsize=0.75\hsize
 \begtt
 \LPartition{0.6:1,4,8;\Pw:1,2,5,6;\Pb:3,4,7,8,9,10}
@@ -218,150 +331,156 @@ $$\vcenter{\hsize=0.75\hsize
 }
 \qquad\LPartition{0.6:1,4,8;\Pw:1,2,5,6;\Pb:3,4,7,8,9,10}{0.6:2,3;0.6:5,7;1.2:6,9,10}$$
 
-To add points inside "\Partition" or "\Bigpartition", one can use command of the form "\Ppoint <y> <shape>:<positions>" as in the following example
-
+Finally, note that we have defined also a few other shapes of points that can be used in the same way as the commands "\Pw" and "\Pb". First of all, we can use squares instead of circle simply by using the commands "\Pq" and "\PQ". In addition, we define the triangle colors $\tcol$, $\Tcol$ through the commands "\Lt", "\LT" (lower triangle) and "\Ut", "\UT" (upper triangle). The upper triangle are upside down. Example:
 $$
 \vcenter{\hsize=0.7\hsize
 \begtt
 \BigPartition{
-\Psingletons 0 to 0.25:1,4
-\Psingletons 1 to 0.75:1,4
-\Pline (2,0) (3,1)
-\Pline (3,0) (2,1)
-\Pline (2.75,0.25) (4,0.25)
-\Ppoint0 \Pw:2,4
-\Ppoint0 \Pb:1,3
-\Ppoint1 \Pw:1,2,3
-\Ppoint1 \Pb:4
+\Pline (1,1) (2,0)
+\Pline (3,1) (4,0)
+\Pline (5,1) (6,0)
+\Pline (7,1) (8,0)
+\Ppoint 0 \Lt:1,5
+\Ppoint 0 \LT:3,7
+\Ppoint 1 \Ut:2,8
+\Ppoint 1 \UT:4,6
 }
 \endtt
 }
 \vcenter{\hsize=0.3\hsize $\displaystyle
 \BigPartition{
-\Psingletons 0 to 0.25:1,4
-\Psingletons 1 to 0.75:1,4
-\Pline (2,0) (3,1)
-\Pline (3,0) (2,1)
-\Pline (2.75,0.25) (4,0.25)
-\Ppoint0 \Pw:2,4
-\Ppoint0 \Pb:1,3
-\Ppoint1 \Pw:1,2,3
-\Ppoint1 \Pb:4
+\Pline (1,1) (2,0)
+\Pline (3,1) (4,0)
+\Pline (5,1) (6,0)
+\Pline (7,1) (8,0)
+\Ppoint 0 \Lt:1,5
+\Ppoint 0 \LT:3,7
+\Ppoint 1 \Ut:2,8
+\Ppoint 1 \UT:4,6
 }$}
 $$
 
-Actually, we have an additional two pre-defined points, which are actually arrows. That is, "\Ls" for arrow up (letters stand for lower singleton) and "\Us" for arrow down. Using them, we can draw the colored singleton \LPartition{\Ls:1;\Pw:1}{} by "\LPartition{\Ls:1;\Pw:1}{}". If we wanted to emphasize the singletons in the example above, we can also replace them by arrows.
+Actually we introduce some predefined partitions for working in the theory of {\em partitions with extra singletons} such as
+$$"\idext"\quad\idext,\qquad "\positionerext"\quad\positionerext,\qquad "\globcolext"\quad\globcolext$$
 
-$$
-\vcenter{\hsize=0.7\hsize
+Finally, we have the arrow colors represented by the command "\Ps". Here, the syntax is slightly different: the command must, in addition, be followed by the height of the arrow. For instance, we can then write
+$$"\LPartition{\Ps1:1,4;\Ps0.6:8}{0.4:2,3;0.4:5,7;0.8:6,9,10}"\quad \LPartition{\Ps1:1,4;\Ps0.6:8}{0.4:2,3;0.4:5,7;0.8:6,9,10}$$
+
+Also the command "\singleton" is not defined by "\uparrow" as one might expect, but using "\LPartition{\Ls1:1}{}". This allows us to write "\singleton[w]" for $\singleton[w]$ and "\singleton[b]" for $\singleton[b]$.
+
+\secc Using color shapes in text
+
+To write about the colors themself, we prepared the corresponding macros that just print the colored point.
+$$"\wcol"\quad\wcol,\qquad"\bcol"\quad\bcol,\qquad"\qcol"\quad\qcol,\qquad"\Qcol"\quad\Qcol,\qquad"\tcol"\quad\tcol,\qquad"\Tcol"\quad\Tcol$$
+
+\sec Some tricks and modifications
+
+\secc Size of the partition
+
+The size and proportions of the partitions (that is, the coordinate system) are determined within the macro "\PartitionD" and "\BigPartitionD". If you want to adjust those, just redefine the macro. Note that the size and the proportions depend on the context. In particular, it is different in text mode, in display mode, in subscripts and in subsubscripts.
+
+Note also that the size of the partitions is defined relatively to the size of the font. So, if you increase the font size, then the partitions, {\typoscale[2000/2000] such as \connecterpart, will also be large.}
+
+This is one way how to ``ad hoc'' enlarge a given partition. Another way is to use the macro "\PartitionA<depth><y base length><x base length>", where <x/y base length> determines the length of the basis vectors, that is, the dinstance between 0 and 1. So, if you want to draw some gigantic partition, you can write something like
 \begtt
-\BigPartition{
-\Psingletons 0 to 0.25:4
-\Ppoint0 \Ls:1 
-\Ppoint1 \Us:1,4
-\Pline (2,0) (3,1)
-\Pline (3,0) (2,1)
-\Pline (2.75,0.25) (4,0.25)
-\Ppoint0 \Pw:2,4
-\Ppoint0 \Pb:1,3
-\Ppoint1 \Pw:1,2,3
-\Ppoint1 \Pb:4
-}
+\PartitionA{0pt}{100pt}{100pt}{\Pblock 0to0.5:1,3 \Pblock 0to1:2,4}
 \endtt
-}
-\vcenter{\hsize=0.3\hsize $\displaystyle
-\BigPartition{
-\Psingletons 0 to 0.25:4
-\Ppoint0 \Ls:1 
-\Ppoint1 \Us:1,4
-\Pline (2,0) (3,1)
-\Pline (3,0) (2,1)
-\Pline (2.75,0.25) (4,0.25)
-\Ppoint0 \Pw:2,4
-\Ppoint0 \Pb:1,3
-\Ppoint1 \Pw:1,2,3
-\Ppoint1 \Pb:4
-}$}
-$$
+$$\PartitionA{0pt}{100pt}{100pt}{\Pblock 0to0.5:1,3 \Pblock 0to1:2,4}$$
 
-One can define his own points using PGF commands. The points should be a macro taking two parameters for the coordinates, where the point should be drawn. For example, we can define diamond-shaped black and white points by
+\secc Line thickness
+
+The thickness of the lines in the partition is also determined relatively to the font size (cf.\ example above). The thickness is determined by the macro "\Pwidth" that contains a number (without units) that corresponds to the thickness in the unit "em". By default, this is set to 0.05. So, when using 10pt font, the thickness is 0.5pt. 
+
+When typesetting in bold, one might want to increase this to roughly 0.08. Compare for example
+$$\hbox{\bf pair partition \pairpart}\qquad \hbox{\bf\def\Pwidth{0.08} pair partition \pairpart}$$
+
+In order to achieve that the thickness changes automatically when switching to the bold font, \LaTeX\ users can write something like
 \begtt
-\def\Pwd#1#2{
+\expandafter\def\expandafter\bfseries
+        \expandafter{\bfseries\def\Pwidth{0.08}}
+\endtt
+somewhere to the beginning of the document. Nevertheless, I would actually not recommend doing so, because in the common \LaTeX\ styles, "\textbf" does not change the shape of math to the bold. So, you might end up with something like{\bf\def\Pwidth{0.08} pair partition $p=\pairpart$,} which looks rather silly I would say. If you would like "\textbf" to change {\em everything} to bold, write the following instead.
+\begtt
+\expandafter\def\expandafter\bfseries
+        \expandafter{\bfseries\boldmath\def\Pwidth{0.08}}
+\endtt
+
+\secc Enlarging the points
+
+In a similar way, the size of the points can be adjusted. This is determined by the macro "\Pcolw", which is by default set to 0.1. That is, the diameter of the circle and the edge of the square is by default 0.1em long. Changing this, we can enlarge the points.
+
+For example, try "\def\Pcolw{0.15}\fourpart[wbqQ]". You should obtain {\def\Pcolw{0.15}\fourpart[wbqQ]}.
+
+\secc Defining new point shapes
+
+One can define his own points using PGF commands. For example, let us define the dimond-shaped point
+\begtt
+\def\Pd (#1,#2){
 \pgftransformshift{\pgfpointxy{#1}{#2}}
-\pgfpathmoveto{\pgfpoint{-0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{0.15em}}
-\pgfpathlineto{\pgfpoint{0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{-0.15em}}
+{\pgfsetxvec{\pgfpoint{\Pcolw em}{0em}}
+\pgfsetyvec{\pgfpoint{0em}{\Pcolw em}}
+\pgfpathmoveto{\pgfpointxy{-1}{0}}
+\pgfpathlineto{\pgfpointxy{0}{1.5}}
+\pgfpathlineto{\pgfpointxy{1}{0}}
+\pgfpathlineto{\pgfpointxy{0}{-1.5}}
 \pgfpathclose
 \pgfsetfillcolor{white}
-\pgfusepath{stroke,fill}
-\pgftransformreset
-}
-\def\Pbd#1#2{
-\pgftransformshift{\pgfpointxy{#1}{#2}}
-\pgfpathmoveto{\pgfpoint{-0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{0.15em}}
-\pgfpathlineto{\pgfpoint{0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{-0.15em}}
-\pgfpathclose
-\pgfsetfillcolor{black}
-\pgfusepath{stroke,fill}
+\pgfusepath{stroke,fill}}
 \pgftransformreset
 }
 \endtt
-\def\Pwd#1#2{
+\def\Pd (#1,#2){
 \pgftransformshift{\pgfpointxy{#1}{#2}}
-\pgfpathmoveto{\pgfpoint{-0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{0.15em}}
-\pgfpathlineto{\pgfpoint{0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{-0.15em}}
+{\pgfsetxvec{\pgfpoint{\Pcolw em}{0em}}
+\pgfsetyvec{\pgfpoint{0em}{\Pcolw em}}
+\pgfpathmoveto{\pgfpointxy{-1}{0}}
+\pgfpathlineto{\pgfpointxy{0}{1.5}}
+\pgfpathlineto{\pgfpointxy{1}{0}}
+\pgfpathlineto{\pgfpointxy{0}{-1.5}}
 \pgfpathclose
 \pgfsetfillcolor{white}
-\pgfusepath{stroke,fill}
-\pgftransformreset
-}
-\def\Pbd#1#2{
-\pgftransformshift{\pgfpointxy{#1}{#2}}
-\pgfpathmoveto{\pgfpoint{-0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{0.15em}}
-\pgfpathlineto{\pgfpoint{0.1em}{0em}}
-\pgfpathlineto{\pgfpoint{0em}{-0.15em}}
-\pgfpathclose
-\pgfsetfillcolor{black}
-\pgfusepath{stroke,fill}
+\pgfusepath{stroke,fill}}
 \pgftransformreset
 }
 
-Now, we can modify our example
+Now, you can use this new point "\Pd" in the same way as any other of the ones discussed before. In addition, if you define your own command to be of the form "\P"$x$, where $x$ is some single letter (here, $x={}$"d"), then you can also use the ``bracket syntax''. For instance, we can now write "\fourpart[dwdq]" and get \fourpart[dwdq].
 
+\coldef\dcol\Pd
+Finally, we can define the command "\dcol" printing the diamond itself $\dcol$ by writting "\coldef\dcol\Pd".
+
+\secc Using together with Ti$k$Z
+
+Since this package is based on Ti$k$Z, any command you would use inside "\Partition" can also be used inside a Ti$k$Z picture. So, you can do stuff like
 $$
-\vcenter{\hsize=0.7\hsize
+\vcenter{\hsize=0.65\hsize
 \begtt
-\BigPartition{
-\Psingletons 0 to 0.25:1,4
-\Psingletons 1 to 0.75:1,4
-\Pline (2,0) (3,1)
-\Pline (3,0) (2,1)
-\Pline (2.75,0.25) (4,0.25)
-\Ppoint0 \Pwd:2,4
-\Ppoint0 \Pbd:1,3
-\Ppoint1 \Pwd:1,2,3
-\Ppoint1 \Pbd:4
-}
+\tikzpicture
+\Pblock 2to3:0,2,4
+\Pblock 2to4:1,3,5
+\draw[rounded corners=4pt]
+(0,0) -- (0,1) -- (.5,1.5) -- (1,1)
+    -- (1,0) -- (0,1) -- (1,1)
+    -- (0,0) -- (1,0);
+\shade[ball color=green]
+    (3,.5) circle (.5cm);
+\Ps-0.5 (3,-2)
+\Pw (3,-2)
+\endtikzpicture
 \endtt
 }
-\vcenter{\hsize=0.3\hsize $\displaystyle
-\BigPartition{
-\Psingletons 0 to 0.25:1,4
-\Psingletons 1 to 0.75:1,4
-\Pline (2,0) (3,1)
-\Pline (3,0) (2,1)
-\Pline (2.75,0.25) (4,0.25)
-\Ppoint0 \Pwd:2,4
-\Ppoint0 \Pbd:1,3
-\Ppoint1 \Pwd:1,2,3
-\Ppoint1 \Pbd:4
-}$}
+\vcenter{\hsize=0.35\hsize $\displaystyle
+\tikzpicture
+\Pblock 2to3:0,2,4
+\Pblock 2to4:1,3,5
+\draw[rounded corners=4pt]
+(0,0) -- (0,1) -- (.5,1.5) -- (1,1) -- (1,0) -- (0,1) -- (1,1) -- (0,0) -- (1,0);
+\shade[ball color=green] (3,.5) circle (.5cm);
+\Ps-0.5 (3,-2)
+\Pw (3,-2)
+\endtikzpicture
+$}
 $$
+
+
 
 \bye

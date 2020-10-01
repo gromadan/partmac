@@ -217,10 +217,10 @@
 
 %%%Some aliases
 
-\def\singleton{{\mathord{\uparrow}}}
-\def\upsingleton{{\mathord{\downarrow}}}
-%\def\singleton{\LPartition{\Ls:1}{}}
-%\def\upsingleton{\UPartition{\Us:1}{}}
+%\def\singleton{{\mathord{\uparrow}}}
+%\def\upsingleton{{\mathord{\downarrow}}}
+\def\singleton{\LPartition{\Ps1:1}{}}
+\def\upsingleton{\UPartition{\Ps0:1}{}}
 \let\pairpart=\Laa
 \let\uppairpart=\Uaa
 \let\fourpart=\Laaaa
@@ -235,36 +235,36 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%The macros
 
-\def\Partition#1{%
-\ifmmode
-\mathchoice{
-\,\PartitionA{0.25em}{0.7em}{1em}{#1}\,%
-}{
-\,\PartitionA{0.25em}{0.7em}{1em}{#1}\,%
-}{
-\,\PartitionA{0.175em}{0.55em}{0.7em}{#1}\,%
-}{
-\,\PartitionA{0.125em}{0.4em}{0.5em}{#1}\,%
-}\else%
-\thinspace\PartitionA{0.25em}{0.7em}{1em}{#1}\thinspace%
-\fi%
+\def\textchoice#1#2#3#4#5{\ifmmode\mathchoice{#1}{#2}{#3}{#4}\else #5\fi}
+
+\def\Partition#1{\def\Ptmp{#1}%
+\futurelet\nextchar\PartitionB
 }
 
-\def\BigPartition#1{%
-\ifmmode
-\mathchoice{
-\,\PartitionA{1em}{0.9em}{2.5em}{#1}\,%
-}{
-\,\PartitionA{0.75em}{0.7em}{2em}{#1}\,%
-}{
-\,\PartitionA{0.25em}{0.5em}{1em}{#1}\,%
-}{
-\,\PartitionA{0.20em}{0.4em}{0.8em}{#1}\,%
+\def\BigPartition#1{\def\Ptmp{#1}%
+\futurelet\nextchar\BigPartitionB
 }
-\else%
-\thinspace\PartitionA{0.75em}{0.7em}{2em}{#1}\thinspace%
-\fi%
+
+\def\PartitionD{%
+\thinspace\textchoice
+{\PartitionA{0.25em}{0.7em}{1em}{\Ptmp}}
+{\PartitionA{0.25em}{0.7em}{1em}{\Ptmp}}
+{\PartitionA{0.175em}{0.55em}{0.7em}{\Ptmp}}
+{\PartitionA{0.125em}{0.4em}{0.5em}{\Ptmp}}
+{\PartitionA{0.25em}{0.7em}{1em}{\Ptmp}}%
+\thinspace%
 }
+
+\def\BigPartitionD{%
+\thinspace\textchoice
+{\PartitionA{1em}{0.9em}{2.5em}{\Ptmp}}
+{\PartitionA{0.75em}{0.7em}{2em}{\Ptmp}}
+{\PartitionA{0.25em}{0.5em}{1em}{\Ptmp}}
+{\PartitionA{0.20em}{0.4em}{0.8em}{\Ptmp}}
+{\PartitionA{0.75em}{0.7em}{2em}{\Ptmp}}%
+\thinspace
+}
+
 
 \def\Pwidth{0.05}
 
@@ -277,6 +277,20 @@
 #4
 \endpgfpicture
 }
+
+\newcount\tmpx
+\newcount\tmpy
+\def\PartitionB{\if[\nextchar\let\next=\PartitionC\else\let\next=\PartitionD\fi\next}
+\def\BigPartitionB{\if[\nextchar\let\next=\BigPartitionC\else\let\next=\BigPartitionD\fi\next}
+\def\PartitionC[#1]{\tmpx=0\tmpy=0\expandafter\def\expandafter\Ptmp\expandafter{\Ptmp\Ppointlist#1]}\PartitionD}
+\def\BigPartitionC[#1]{\tmpx=0\tmpy=0\expandafter\def\expandafter\Ptmp\expandafter{\Ptmp\Ppointlist#1]}\BigPartitionD}
+
+\expandafter\def\csname P/\endcsname{\advance\tmpy by1 \tmpx=0}
+\expandafter\def\csname P0\endcsname{}
+
+\def\Ppointlist#1{\advance\tmpx by 1\if#1]\else
+	\csname P#1\endcsname(\the\tmpx,\the\tmpy)
+	\fihere\Ppointlist\fi}
 
 \def\fihere#1\fi{\fi#1}
 
@@ -307,40 +321,29 @@
 }
 
 \def\Pcolw{0.1}
-\def\Pb#1#2{
+\def\Pb (#1,#2){
 	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
 	\pgfsetfillcolor{black}
 	\pgfusepath{stroke,fill}
 }
 
-\def\Pw#1#2{
+\def\Pw (#1,#2){
 	\pgfpathcircle{\pgfpointxy{#1}{#2}}{\Pcolw em}
 	\pgfsetfillcolor{white}
 	\pgfusepath{stroke,fill}
 }
 
-\def\Ls#1#2{
-	\pgftransformshift{\pgfpointxy{#1}{#2}}
+\def\Ps#1(#2,#3){
 	\pgfsetarrowsend{to}
-	\pgfpathmoveto{\pgfpointorigin}
-	\pgfpathlineto{\pgfpointxy{0}{1}}
-	\pgfusepath{stroke}
-	\pgftransformreset
-	\pgfsetarrowsend{}
-}
-
-\def\Us#1#2{
-	\pgftransformshift{\pgfpointxy{#1}{#2}}
-	\pgfsetarrowsend{to}
-	\pgfpathmoveto{\pgfpointorigin}
-	\pgfpathlineto{\pgfpoint{0}{-1}}
+	\pgfpathmoveto{\pgfpointxy{#2}{#3}}
+	\pgfpathlineto{\pgfpointxy{#2}{#1}}
 	\pgfusepath{stroke}
 	\pgftransformreset
 	\pgfsetarrowsend{}
 }
 
 \def\Ppoint #1 #2:#3 {\PpointA{#1}{#2}#3,,}
-\def\PpointA#1#2#3,{\ifx,#3,\else #2{#3}{#1}\fihere\PpointA{#1}{#2}\fi}
+\def\PpointA#1#2#3,{\ifx,#3,\else #2(#3,#1)\fihere\PpointA{#1}{#2}\fi}
 
 \def\Lsingletons #1#2 {%
 	\ifcat\noexpand#1\noexpand\ \Ppoint0 #1#2 \else\Psingletons 0to#1#2 \fi
@@ -375,3 +378,105 @@
 \def\UPartitionB#1;{\ifx;#1;\else
 \Pblock 1to#1 
 \fihere\UPartitionB\fi}
+
+\def\coldefA #1 #2{\kern0.1ex\vcenter{\hbox{\def\Pcolw{#1}\pgfpicture#2(0,0)\endpgfpicture}}\kern0.1ex}
+
+\def\coldef#1#2{\def#1{{\textchoice
+{\coldefA 0.15 #2}{\coldefA 0.15 #2}{\coldefA 0.1 #2}{\coldefA 0.08 #2}{$\coldefA 0.15 #2$}}}}
+
+\coldef\bcol\Pb
+\coldef\wcol\Pw
+\coldef\qcol\Pq
+\coldef\Qcol\PQ
+\coldef\tcol\Lt
+\coldef\Tcol\LT
+
+
+\def\Pq (#1,#2){
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-\Pcolw em}{-\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{-\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{-\Pcolw em}}
+	\pgfpathclose
+	\pgfsetfillcolor{white}
+	\pgfusepath{stroke,fill}
+	\pgftransformreset
+}
+
+\def\PQ (#1,#2){
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	\pgfpathmoveto{\pgfpoint{-\Pcolw em}{-\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{-\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{\Pcolw em}}
+	\pgfpathlineto{\pgfpoint{\Pcolw em}{-\Pcolw em}}
+	\pgfpathclose
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}
+	\pgftransformreset
+}
+
+\def\Lt (#1,#2){
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	{\pgfsetxvec{\pgfpoint{\Pcolw em}{0em}}
+	\pgfsetyvec{\pgfpoint{0em}{\Pcolw em}}
+	\pgfpathmoveto{\pgfpointxy{-1.4}{0}}
+	\pgfpathlineto{\pgfpointxy{0}{2.5}}
+	\pgfpathlineto{\pgfpointxy{1.4}{0}}
+	\pgfpathclose
+	\pgfusepath{stroke}}
+	\pgftransformreset
+}
+\def\Ut (#1,#2){
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	{\pgfsetxvec{\pgfpoint{\Pcolw em}{0em}}
+	\pgfsetyvec{\pgfpoint{0em}{\Pcolw em}}
+	\pgfpathmoveto{\pgfpointxy{-1.4}{0}}
+	\pgfpathlineto{\pgfpointxy{0}{-2.5}}
+	\pgfpathlineto{\pgfpointxy{1.4}{0}}
+	\pgfpathclose
+	\pgfusepath{stroke}}
+	\pgftransformreset
+}
+\def\LT (#1,#2){
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	{\pgfsetxvec{\pgfpoint{\Pcolw em}{0em}}
+	\pgfsetyvec{\pgfpoint{0em}{\Pcolw em}}
+	\pgfpathmoveto{\pgfpointxy{-1.4}{0}}
+	\pgfpathlineto{\pgfpointxy{0}{2.5}}
+	\pgfpathlineto{\pgfpointxy{1.4}{0}}
+	\pgfpathclose
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}}
+	\pgftransformreset
+}
+\def\UT (#1,#2){
+	\pgftransformshift{\pgfpointxy{#1}{#2}}
+	{\pgfsetxvec{\pgfpoint{\Pcolw em}{0em}}
+	\pgfsetyvec{\pgfpoint{0em}{\Pcolw em}}
+	\pgfpathmoveto{\pgfpointxy{-1.4}{0}}
+	\pgfpathlineto{\pgfpointxy{0}{-2.5}}
+	\pgfpathlineto{\pgfpointxy{1.4}{0}}
+	\pgfpathclose
+	\pgfsetfillcolor{black}
+	\pgfusepath{stroke,fill}}
+	\pgftransformreset
+}
+\def\idext{
+	\Partition{
+	\Ppoint0 \Lt:1
+	\Ppoint1 \Ut:1
+	}}
+\def\positionerext{
+	\Partition{
+	\Ppoint0 \Lt:1
+	\Ppoint1 \Ut:2
+	\Pline(2,0)(1,1)
+	}}
+\def\globcolext{
+	\Partition{
+	\Ppoint0 \Lt:1
+	\Ppoint1 \Ut:3
+	\Pline(2,0)(1,1)
+	\Pline(3,0)(2,1)
+	}}
