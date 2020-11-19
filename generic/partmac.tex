@@ -468,21 +468,23 @@
 \coldef\tcol\Lt
 \coldef\Tcol\LT
 
+\def\singext{\LPartition{\Lt:1}{}}
+\def\upsingext{\UPartition{\Ut:1}{}}
 \def\idext{
 	\Partition{
-	\Ppoint0 \Lt:1
-	\Ppoint1 \Ut:1
+	\Lt (1,0)
+	\Ut (1,1)
 	}}
 \def\positionerext{
 	\Partition{
-	\Ppoint0 \Lt:1
-	\Ppoint1 \Ut:2
+	\Lt (1,0)
+	\Ut (2,1)
 	\Pline(2,0)(1,1)
 	}}
 \def\globcolext{
 	\Partition{
-	\Ppoint0 \Lt:1
-	\Ppoint1 \Ut:3
+	\Lt (1,0)
+	\Ut (3,1)
 	\Pline(2,0)(1,1)
 	\Pline(3,0)(2,1)
 	}}
