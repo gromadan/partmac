@@ -453,6 +453,62 @@ Now, you can use this new point "\Pd" in the same way as any other of the ones d
 \coldef\dcol\Pd
 Finally, we can define the command "\dcol" printing the diamond itself $\dcol$ by writting "\coldef\dcol\Pd".
 
+\secc Using Phook
+
+There is an empty macro "\Phook", which is included at the beginning of every "\Partition" and "\BigPartition". You can use it to change somehow the way the partitions are drawn. For instance, if you write
+\begtt
+\def\Phook{\pgfsetstrokecolor{blue}}
+\endtt
+then all the partitions you draw are going to be blue. See the next section for another application.
+
+\secc Drawing crossing strings to be interrupted
+
+\def\addborder{
+\pgfsetinnerlinewidth{\pgflinewidth}
+\pgfsetlinewidth{4\pgflinewidth}
+\pgfsetstrokecolor{white}
+\pgfsetinnerstrokecolor{black}
+}
+\def\braid{\Partition{
+\addborder
+\Pline (1,1)(2,0)
+\Pline (2,1)(1,0)
+}}
+\def\braidinv{\Partition{
+\addborder
+\Pline (2,1)(1,0)
+\Pline (1,1)(2,0)
+}}
+
+If you work with categories that have non-symmetric brainding, you may need to draw elements like $\braid$ or $\braidinv$. In order to achieve that, we can define the following macro. 
+\begtt
+\def\addborder{
+\pgfsetinnerlinewidth{\pgflinewidth}
+\pgfsetlinewidth{4\pgflinewidth}
+\pgfsetstrokecolor{white}
+\pgfsetinnerstrokecolor{black}
+}
+\endtt
+
+Now, if you write "\addborder" in the beginning of the code inside "\Parition" or "\BigPartition", every line will be typeset with an extra white border arround it. Then it depends on the order of the commands, which line or block will be the top one. The above two examples $\braid$ and $\braidinv$ were typeset using
+\begtt
+\Partition{                      \Partition{
+\addborder                       \addborder
+\Pline (1,1)(2,0)                \Pline (2,1)(1,0)
+\Pline (2,1)(1,0)                \Pline (1,1)(2,0)
+}                                }
+\endtt
+
+Finally, if you want all partitions to be typeset in such a way, then you can simply write
+\begtt
+\def\Phook{\addborder}
+\endtt
+
+{
+\def\Phook{\addborder}
+The command "\addborder" will then be included automatically. So, you can write "\crosspart" or "\Labab" to obtain $\crosspart$ or $\Labab$. It works well, but not perfect. If some block is composed using more than one command (such as "\Pblock" together with "\Pline"), then there will be some flaws. For instance, "\connecterpart" gives $\connecterpart$.
+}
+
 \secc Using together with Ti$k$Z
 
 Since this package is based on Ti$k$Z, any command you would use inside "\Partition" can also be used inside a Ti$k$Z picture. So, you can do stuff like

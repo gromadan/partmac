@@ -281,12 +281,15 @@
 
 \def\Pwidth{0.05}
 
+\def\Phook{}
+
 \def\PartitionA#1#2#3#4{%
 \pgfpicture
 \pgfsetbaseline{#1}
 \pgfsetxvec{\pgfpoint{#2}{0em}}
 \pgfsetyvec{\pgfpoint{0em}{#3}}
 \pgfsetlinewidth{\Pwidth em}
+\Phook
 #4
 \endpgfpicture
 }
@@ -306,13 +309,14 @@
 \pgfusepath{stroke}
 \fihere\PsingletonsA{#1}{#2}\fi}
 
-\def\Pblock #1to#2:#3 {\PblockA{#1}{#2}#3,,}
+\def\Pblock #1to#2:#3 {\PblockA{#1}{#2}#3,,
+\pgfusepath{stroke}
+}
 \def\PblockA#1#2#3,#4,{\ifx,#4,\else
 \pgfpathmoveto{\pgfpointxy{#3}{#1}}
 \pgfpathlineto{\pgfpointxy{#3}{#2}}
 \pgfpathlineto{\pgfpointxy{#4}{#2}}
 \pgfpathlineto{\pgfpointxy{#4}{#1}}
-\pgfusepath{stroke}
 \fihere\PblockA{#1}{#2}#4,\fi}
 
 \def\Ptext(#1,#2)#3{%
